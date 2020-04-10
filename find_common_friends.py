@@ -56,7 +56,7 @@ def add_user(json_):
     users_list = []
     for user in ids_list:
         users_list.append(VkUser(str(user)))
-        time.sleep(0.4)
+        # time.sleep(0.4)
     return users_list
 
 
@@ -68,6 +68,7 @@ def get_user_id(user):
     }
     response = requests.get(URL2, params=params)
     # print(response.status_code)
+    time.sleep(0.4)
     json_ = response.json()
     if json_['response'][0]['first_name'] == 'DELETED':
         print(f'Пользователь с id {user} удален')
@@ -82,7 +83,7 @@ def print_users(users_list):
         return 0
     print(f'Всего {len(users_list)} общих друзей:')
     for user in users_list:
-        time.sleep(0.4)
+        # time.sleep(0.4)
         print(f'{user}  -   {user.first_name} {user.last_name}')
 
 
@@ -90,7 +91,7 @@ if __name__ == '__main__':
     while True:
         cmd = input('Введите команду - ')
         if cmd == 'cf' or cmd == 'common friends':
-            users = input('Введите id пользователей - ').split()
+            users = input('Введите id пользователей - ').split()    # Вводим id через пробел
             if len(users) > 2 or len(users) == 1 and users[0] != 'end':
                 print('Неверный ввод')
                 break
