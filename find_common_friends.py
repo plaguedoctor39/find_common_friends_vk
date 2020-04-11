@@ -3,11 +3,20 @@ import json
 import time
 import config
 import sys
+from urllib.parse import urlencode
 
 tokken = config.unlimited_tokken
 tokken2 = config.oneday_tokken
 URL = 'https://api.vk.com/method/friends.getMutual'
 URL2 = 'https://api.vk.com/method/users.get'
+OAUTH_URL = 'https://oauth.vk.com/authorize'
+OAUTH_PARAMS = {
+    'client_id': config.client_id,
+    'display': 'page',
+    'scope': 'friends',
+    'response_type': 'token',
+    'v': '5.52'
+}
 
 
 class VkUser():
@@ -56,7 +65,7 @@ def add_user(json_):
     users_list = []
     for user in ids_list:
         users_list.append(VkUser(str(user)))
-        # time.sleep(0.4)
+        time.sleep(0.4)
     return users_list
 
 
@@ -105,5 +114,7 @@ if __name__ == '__main__':
         elif cmd == 'p' or cmd == 'print':
             id = input('Введите id пользователя - ')
             print(VkUser(id))
+        elif cmd == 'pt':
+            print('?'.join((OAUTH_URL, urlencode(OAUTH_PARAMS))))
         else:
             break
